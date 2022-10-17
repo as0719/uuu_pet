@@ -1,0 +1,226 @@
+﻿<%@ Master Language="C#" %>
+
+<!DOCTYPE html>
+
+<script runat="server">
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["loginUser"] == null)
+        {
+            HyperLink1.NavigateUrl = "~/f_login.html";
+            HyperLink1.Text = "<i class='fa fa-user'></i>登入";
+
+            HyperLink2.NavigateUrl = "~/f_login.html";
+            HyperLink2.Text = "<i class='fa fa-user'></i>登入";
+
+            HyperLink3.NavigateUrl = "~/f_login.html";
+
+            HyperLink4.NavigateUrl = "~/f_login.html";
+
+            HyperLink5.NavigateUrl = "~/f_login.html";
+        }
+        else
+        {
+            HyperLink1.NavigateUrl = "~/f_Logout.aspx";
+            HyperLink1.Text = "<i class='fa fa-user'></i>登出";
+
+            HyperLink2.NavigateUrl = "~/f_Logout.aspx";
+            HyperLink2.Text = "<i class='fa fa-user'></i>登出";
+
+            HyperLink3.NavigateUrl = "~/f_shop/Cart.aspx";
+
+            HyperLink4.NavigateUrl = "~/f_shop/Cart.aspx";
+
+            HyperLink5.NavigateUrl = "~/f_shop/HistoryOrders.aspx";
+        }
+    }
+</script>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <title>PetLover</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Favicon -->
+    <link href="/f_img/favicon.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link href="/f_lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/f_lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/f_lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/f_css/style.css" rel="stylesheet">
+    <link href="/f_css/sweetalert.css" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="CssHolder" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Navbar Start -->
+        <div class="container-fluid p-0">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5 fixed-top">
+                <a href="/f_index.aspx" class="navbar-brand d-block d-lg-none">
+                    <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Pet</span>Lover</h1>
+                </a>
+
+                <div class="d-lg-none offset-md-6 offset-3 ">
+                    <asp:HyperLink ID="HyperLink1" CssClass="mr-2 text-white" runat="server" NavigateUrl="~/f_login.html">
+                        <i class="fa fa-user"></i>登入
+                    </asp:HyperLink>
+
+                    <asp:HyperLink ID="HyperLink4" CssClass="mr-2 text-white" runat="server" NavigateUrl="~/f_login.html">
+                            <i class="fa fa-shopping-cart"></i>
+                    </asp:HyperLink>
+
+                </div>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="col-lg-2">
+                    <a href="/f_index.aspx" class="navbar-brand d-none d-lg-block">
+                        <h1 class="m-0 display-5 text-capitalize text-white"><span class="text-primary">Pet</span>Lover</h1>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="/f_index.aspx" class="nav-item nav-link">首頁</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">住宿</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="/f_booking/dog.aspx" class="dropdown-item">狗</a>
+                                <a href="/f_booking/cat.aspx" class="dropdown-item">貓</a>
+                            </div>
+                        </div>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">寵物訓練</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="/f_training/teacher.aspx" class="dropdown-item">訓練師資訊</a>
+                                <a href="/f_training/classteam.aspx" class="dropdown-item">團體課程</a>
+                                <a href="/f_training/classprivate.aspx" class="dropdown-item">一對一課程</a>
+                                <a href="/f_training/classTeamHistoryList.aspx" class="dropdown-item">查詢團體課報名</a>
+                                <a href="/f_training/classTeamHistoryForm.aspx" class="dropdown-item">查詢一對一咨詢</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">商城</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="/f_shop/shop.aspx" class="dropdown-item">商城首頁</a>
+                                <asp:HyperLink ID="HyperLink5"  runat="server"  class="dropdown-item" NavigateUrl="~/f_login.html">
+                                    歷史訂單
+                                </asp:HyperLink>
+                                <%--<a href="/f_shop/HistoryOrders.aspx" class="dropdown-item">歷史訂單</a>--%>
+                            </div>
+                        </div>
+
+
+                        <%--<a href="/f_shop/shop.aspx" class="nav-item nav-link">商城</a>--%>
+                    </div>
+                    <div class="col-lg-2 d-none d-lg-block">
+                        <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/f_login.html" CssClass="mr-2 text-white">
+                            <i class="fa fa-user"></i>
+                        </asp:HyperLink>
+                        <asp:HyperLink ID="HyperLink3" CssClass="mr-2 text-white" runat="server" NavigateUrl="~/f_login.html">
+                            <i class="fa fa-shopping-cart"></i>
+                        </asp:HyperLink>
+                    </div>
+
+                </div>
+
+            </nav>
+        </div>
+        <!-- Navbar End -->
+
+
+        <asp:ContentPlaceHolder ID="BodyHolder" runat="server"></asp:ContentPlaceHolder>
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-white mt-5 py-5 px-sm-3 px-md-5">
+            <div class="row pt-5">
+                <div class="col-lg-4 col-md-6  mb-0 mt-0">
+                    <h1 class="mb-3 display-5 text-capitalize text-white"><span class="text-primary">Pet</span>Lover</h1>
+                    <p class="m-0">北市特寵業字第V1110001-XX號</p>
+                </div>
+                <div class="col-lg-8 col-md-6  mb-0 mt-0">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-primary mb-4">Get In Touch</h5>
+                            <p><i class="fa fa-map-marker-alt mr-2"></i>10491 台北市松山區復興北路99號12樓</p>
+                            <p><i class="fa fa-phone-alt mr-2"></i>02-25149191</p>
+                            <p><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                            <div class="d-flex justify-content-start mt-4">
+                                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid text-white py-4 px-sm-3 px-md-5" style="background: #111111;">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <p class="m-0 text-white">
+                        Copyright &copy; 2022 專題報告使用
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+        <!-- JavaScript Libraries -->
+        <%--   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>--%>
+        <script type="text/javascript" src="/b_forBackend/jquery.js"></script>
+        <script src="/b_forBackend/jquery-ui.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <!-- -->
+        <script src="/f_lib/easing/easing.min.js"></script>
+        <script src="/f_lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="/f_lib/tempusdominus/js/moment.min.js"></script>
+        <script src="/f_lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="/f_lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="/f_js/main.js"></script>
+
+
+        <!-- Contact Javascript File 
+        <script src="/mail/jqBootstrapValidation.min.js"></script>
+        <script src="/mail/contact.js"></script>
+            -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+        <script src="/f_js/sweetalert.min.js"></script>
+        <script src="/f_js/sweetalert-dev.js"></script>
+
+
+
+        <asp:ContentPlaceHolder ID="JSHolder" runat="server"></asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>

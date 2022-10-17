@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PetLover-登入</title>
+    <!-- Favicon -->
+    <link href="/f_img/favicon.png" rel="icon">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/f_css/style.css" rel="stylesheet">
+
+    <!--Login Css https://codepen.io/Rh2o/pen/yLgxJoG -->
+    <link href="/f_css/Login.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/b_forBackend/vendors/typicons/typicons.css" />
+    <style>
+        .field-icon {
+            float: right;
+            left: 7rem;
+            margin-top: -65px;
+            position: relative;
+            font-size: 3em;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-in-container">
+            <form action="/f_Login.aspx" method="post">
+                <h1>Sign in</h1>
+                <span>or use your account</span>
+                <input type="email" id="txtEmail" name="txtEmail" placeholder="Email" required />
+                <input type="password" id="txtPwd" name="txtPwd" placeholder="Password" required />
+                <span toggle="#password-field" class="field-icon typcn typcn-eye-outline toggle-password"></span>
+                <a href="/f_MemberForgetPwd.aspx">Forgot your password?</a>
+                <input type="submit" class="ghost bg-primary" value="登入" />
+                <input type="button" class="ghost bg-secondary" onclick="setDemo()" value="demo" />
+                <input type="button" class="ghost bg-secondary" onclick="setRegister()" value="註冊登入demo" />
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right bg-primary">
+                    <h1>Hello, Friend!</h1>
+                    <p>申請加入會員</p>
+                    <input type="button" class="ghost bg-primary" value="加入會員" onclick="window.location.href='/f_register.html'" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <link href="/b_forBackend/css/sweetalert2.css" rel="stylesheet" />
+    <script src="/b_forBackend/js/sweetalert2.js"></script>
+    <script src="/b_forBackend/jquery.js"></script>
+    <script>
+        var getUrl = document.URL;
+        if (getUrl.endsWith("?login=error")) {
+            //登入錯誤
+            swal({
+                title: '訊息',
+                text: '帳號密碼有誤',
+                type: 'warning',
+            });
+        }
+        else {
+        }
+        $(".toggle-password").click(function () {
+
+            $(this).toggleClass("typcn-eye typcn-eye-outline");
+            var input = $($(this).attr("toggle"));
+            if ($("#txtPwd").attr("type") == "password") {
+                $("#txtPwd").attr("type", "text");
+            } else {
+                $("#txtPwd").attr("type", "password");
+            }
+        });
+
+        function setDemo() {
+            $("#txtEmail").val("aaa@bbb.com");
+            $("#txtPwd").val("111");
+        }
+        function setRegister() {
+            $("#txtEmail").val("sabina@uuu.com");
+            $("#txtPwd").val("111");
+        }
+    </script>
+</body>
+</html>

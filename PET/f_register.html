@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!-- Favicon -->
+    <link href="/f_img/favicon.png" rel="icon">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/f_css/style.css" rel="stylesheet">
+
+    <!--Login Css https://codepen.io/Rh2o/pen/yLgxJoG -->
+    <link href="/f_css/Login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container right-panel-active" id="container">
+        <div class="form-container sign-up-container">
+            <form action="/f_Register.aspx" method="post">
+                <h1>Create Account</h1>
+                <span>or use your email for registration</span>
+                <input type="text" id="txtName" name="txtName" placeholder="帳號" required />
+                <input type="email" id="txtEmail" name="txtEmail" placeholder="Email" required />
+                <input type="password" id="txtPwd" name="txtPwd" placeholder="密碼" required />
+                <input type="password" id="txtPwd2" name="txtPwd2" placeholder="再次確認密碼" required />
+                <input type="submit" class="ghost bg-primary" id="btnRegister" value="註冊" />
+                <input type="button" class="ghost bg-secondary" onclick="setDemo()" value="demo" />
+                <!--
+    <input type="password" id="txtPwd2" name="txtPwd2" onblur="pwdErrMsg()" placeholder="再次確認密碼" required />
+    <input type="submit" class="ghost bg-primary" onclick="return chkPwd()" value="註冊" />
+         -->
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left bg-primary">
+                    <h1>Welcome Back!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link href="/b_forBackend/css/sweetalert2.css" rel="stylesheet" />
+    <script src="/b_forBackend/js/sweetalert2.js"></script>
+    <script src="/b_forBackend/jquery.js"></script>
+    <script>
+        var getUrl = document.URL;
+        if (getUrl.endsWith("?result=error")) {
+            //登入錯誤
+            swal({
+                title: '訊息',
+                text: '請確認註冊資訊',
+                type: 'warning',
+            });
+        }
+        else {
+        }
+
+        function setDemo() {
+            $("#txtName").val('張鈺珊');
+            $("#txtEmail").val('sabina@uuu.com');
+            $("#txtPwd").val('111');
+            $("#txtPwd2").val('111');
+        }
+
+        $(function () {
+
+            $("#btnRegister").click(function () {
+                if ($("#txtPwd").val() == $("#txtPwd2").val()) {
+                    document.getElementById("txtPwd2").setCustomValidity('');
+                }
+                else {
+                    document.getElementById("txtPwd2").setCustomValidity('密碼不一致');
+                    document.forms[0].reportValidity();
+                    event.preventDefault();
+                }
+            })
+        })
+
+
+        function chkSend() {
+            return false;
+        }
+
+        function chkPwd() {
+            if ($("#txtPwd").val() == $("#txtPwd2").val()) {
+                return true;
+            }
+            else {
+                // $("#txtPwd2").attr('setCustomValidity', '密碼不一致');
+                return false;
+            }
+        }
+        function pwdErrMsg() {
+            if ($("#txtPwd2").val() != "") {
+                //$("#txtPwd2").attr('setCustomValidity', '密碼不一致');
+
+                //$("#txtPwd2").attr("oninvalid", "setCustomValidity='密碼不一致'");
+                $("#txtPwd2").attr("oninvalid", "setCustomValidity('密碼不一致')");
+            }
+            else {
+                //$("#txtPwd2").attr('setCustomValidity', '');
+                $("#txtPwd2").removeAttr('setCustomValidity')
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+﻿<%@ Master Language="C#" %>
+
+<!DOCTYPE html>
+
+<script runat="server">
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Emp"] == null)
+        {
+            Response.Redirect("~/b_00Main/b_Login.aspx");
+        }
+        else
+        {
+            Employee emp = Session["Emp"] as Employee;
+            Permission permission = emp.Permission;
+            //新增職務
+            txpPermissionEdit.Text = permission.PermissionEdit;
+            txpPermissionView.Text = permission.PermissionView;
+            //會員管理
+            txpMemberEdit.Text = permission.MemberEdit;
+            txpMemberView.Text = permission.MemberView;
+            //商城管理
+            txpMallEdit.Text = permission.MallOrderEdit;
+            txpMallView.Text = permission.MallOrderView;
+            //住宿管理
+            txpRoomEdit.Text = permission.RoomOrderEdit;
+            txpRoomView.Text = permission.RoomOrderView;
+            //員工管理
+            txpEmployeeEdit.Text = permission.EmployeeEdit;
+            txpEmployeeView.Text = permission.EmployeeView;
+            //課程管理
+            txpCourseEdit.Text = permission.CourseEdit;
+            txpCourseView.Text = permission.CourseView;
+        }
+    }
+</script>
+
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>PetLover</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="../b_forBackend/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../b_forBackend/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="../b_forBackend/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <%--<link rel="shortcut icon" href="../b_forBackend/images/favicon.png" />--%>
+    <link rel="shortcut icon" href="/f_img/favicon.png" />
+
+
+    <link rel="stylesheet" href="../b_forBackend/themes/ui-lightness/jquery-ui.css" />
+    <link href="../b_forBackend/jquery-ui-1.13.2.custom/jquery-ui.css" rel="stylesheet" />
+
+    <style>
+        /*        #class i.menu-arrow:before {
+            content: "\e0bd";
+        }*/
+
+        .active {
+            content: "\e0bd";
+            /*background-color: gray;*/
+        }
+    </style>
+
+
+    <asp:ContentPlaceHolder ID="CSSHolder" runat="server"></asp:ContentPlaceHolder>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex justify-content-center">
+
+                <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+
+                    <%--                    <a class="navbar-brand brand-logo" href="../b_00Main/b_Dashboard.aspx">
+                        <img src="../b_forBackend/images/logo.svg" alt="logo" /></a>
+
+                    <a class="navbar-brand brand-logo-mini" href="../b_00Main/b_Dashboard.aspx">
+                        <img src="../b_forBackend/images/logo-mini.svg" alt="logo" /></a>--%>
+
+                    <a class="navbar-brand brand-logo text-white" href="../b_00Main/b_Dashboard.aspx">PetLover
+                    </a>
+
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="typcn typcn-th-menu"></span>
+                    </button>
+
+                </div>
+
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <%--<img src="images/faces/face5.jpg" alt="profile" />--%>
+                            <span class="nav-profile-name">
+
+                                <asp:ContentPlaceHolder ID="Title" runat="server"></asp:ContentPlaceHolder>
+
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="typcn typcn-th-menu"></span>
+                </button>
+            </div>
+        </nav>
+
+
+        <div class="container-fluid page-body-wrapper">
+
+            <%--側邊欄--%>
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../b_00Main/b_Dashboard.aspx">
+                            <i class="typcn typcn-device-desktop menu-icon"></i>
+                            <span class="menu-title">主控台</span>
+                            <%--<div class="badge badge-danger">new</div>--%>
+                        </a>
+                    </li>
+
+                    <%--商城管理--%>
+                    <li class="nav-item" id="NavMallView">
+                        <a class="nav-link" id="shop" data-toggle="collapse" href="#form-Shop" aria-expanded="false" aria-controls="form-Shop">
+                            <i class="typcn typcn-film menu-icon"></i>
+                            <span class="menu-title">商城管理</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-Shop">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"><a class="nav-link" href="../b_01Shop/1_1_ProductEdit.aspx">商品管理</a></li>
+                                <li class="nav-item"><a class="nav-link" href="../b_01Shop/1_2_ShopOrder.aspx">訂單管理</a></li>
+                                <li class="nav-item"><a class="nav-link" href="../b_01Shop/1_3_DiscountCode.aspx">折扣碼管理</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <%--會員管理--%>
+                    <li class="nav-item" id="NavMemberView">
+                        <a class="nav-link" id="member" data-toggle="collapse" href="#form-Member" aria-expanded="false" aria-controls="form-Member">
+                            <i class="typcn typcn-user menu-icon"></i>
+                            <span class="menu-title">會員管理</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-Member">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item "><a class="nav-link" href="../b_02Member/2_1_Member.aspx">會員編輯</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <%--住宿管理--%>
+                    <li class="nav-item" id="NavRoomView">
+                        <a class="nav-link" id="hotel" data-toggle="collapse" href="#form-Hotel" aria-expanded="false" aria-controls="form-Hotel">
+                            <i class="typcn typcn-calendar menu-icon"></i>
+                            <span class="menu-title">住宿管理</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-Hotel">
+                            <ul class="nav flex-column sub-menu">
+                                <%--<li class="nav-item"><a class="nav-link" href="/b_03Hotel/3_1_HotelMainPage.aspx">房間狀態</a></li>--%>
+                                <li class="nav-item"><a class="nav-link" href="/b_03Hotel/3_2_HotelOrder.aspx">訂單管理</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/b_03Hotel/3_3_Room.aspx">房型管理</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/b_03Hotel/3_4_Pet.aspx">寵物管理</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                    <%--員工管理--%>
+                    <li class="nav-item">
+                        <a class="nav-link" id="employee" data-toggle="collapse" href="#form-Employee" aria-expanded="false" aria-controls="form-Employee">
+                            <i class="typcn typcn-mortar-board menu-icon"></i>
+                            <span class="menu-title">員工管理</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-Employee">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item" id="NavPermissionView"><a class="nav-link" href="/b_04Employee/4_1_EmployeeAuth.aspx">權限設定</a></li>
+                                <li class="nav-item" id="NavEmployeeView"><a class="nav-link" href="/b_04Employee/4_2_Employee.aspx">員工管理</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+                    <%--課程管理--%>
+                    <li class="nav-item">
+                        <a class="nav-link" id="class" data-toggle="collapse" href="#form-Class" aria-expanded="false" aria-controls="form-Class">
+                            <i class="typcn typcn-mortar-board menu-icon"></i>
+                            <span class="menu-title">課程管理</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-Class">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item CourseView"><a class="nav-link" href="/b_05Class/5_1_ClassInfo.aspx">團體課程資訊管理</a></li> 
+                                <li class="nav-item CourseView"><a class="nav-link" href="/b_05Class/5_1_ClassInfoCalendar.aspx">團體課程月曆模式</a></li> 
+                                <li class="nav-item CourseView"><a class="nav-link" href="/b_05Class/5_3_OnebyoneClassAll.aspx">一對一報名管理</a></li>
+                                <li class="nav-item CourseView"><a class="nav-link" href="/b_05Class/5_3_4_OnebyoneClassChart.aspx">一對一課程處理狀態</a></li>
+                                <li id="NavTrainer" class="nav-item"><a class="nav-link" href="/b_05Class/5_4_ClassTeacher.aspx">訓練師管理</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <%--登出--%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/b_00Main/b_Logout.aspx">
+                            <i class="typcn typcn-eject menu-icon"></i>
+                            <span class="menu-title">登出</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- partial -->
+
+
+            <asp:ContentPlaceHolder ID="BodyHolder" runat="server"></asp:ContentPlaceHolder>
+
+        </div>
+
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted">Free <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrap dashboard</a> templates from Bootstrapdash.com</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- partial -->
+
+
+
+        <!-- 個人權限 -->
+        <div style="display: none">
+            <asp:TextBox ID="txpPermissionEdit" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpPermissionView" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpMemberEdit" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpMemberView" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpMallEdit" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpMallView" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpRoomEdit" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpRoomView" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpEmployeeEdit" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpEmployeeView" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpCourseEdit" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txpCourseView" runat="server"></asp:TextBox>
+        </div>
+
+
+
+
+
+    </form>
+    <!-- container-scroller -->
+
+    <!-- base:js -->
+    <script src="../../b_forBackend/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="../../b_forBackend/js/off-canvas.js"></script>
+    <script src="../../b_forBackend/js/hoverable-collapse.js"></script>
+    <script src="../../b_forBackend/js/template.js"></script>
+    <script src="../../b_forBackend/js/settings.js"></script>
+    <script src="../../b_forBackend/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="../../b_forBackend/vendors/chart.js/Chart.min.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="../../b_forBackend/js/chart.js"></script>
+
+    <script type="text/javascript" src="../b_forBackend/jquery.js"></script>
+    <script type="text/javascript" src="../b_forBackend/jquery-ui.js"></script>
+
+    <script src="../b_forBackend/js/file-upload.js"></script>
+    <script src="../b_forBackend/js/typeahead.js"></script>
+    <script src="../b_forBackend/js/select2.js"></script>
+    <!-- End custom js for this page-->
+
+    <script>
+        $(function () {
+            //---------------權限設定--------------------
+            var PermissionEdit = ['#BodyHolder_btnEmpAuthEdit', '#empAuth .theme-setting-wrapper'];
+            var PermissionView = ['#NavPermissionView', ''];
+            var MemberEdit = ['#NavMemberEdit', ''];
+            var MemberView = ['#NavMemberView'];
+            var MallEdit = ['#ProductEdit .theme-setting-wrapper', '#DiscountCode .theme-setting-wrapper'];
+            var MallView = ['#NavMallView', ''];
+            var RoomEdit = ['#NavMemberView', ''];
+            var RoomView = ['#NavRoomView', ''];
+            var EmployeeEdit = ["#emp [type='button']", "#emp .theme-setting-wrapper"];
+            var EmployeeView = ['#NavEmployeeView', '#NavTrainer'];
+            var CourseEdit = ['#courseInfo .theme-setting-wrapper', '#trainer .theme-setting-wrapper'];
+            var CourseView = ['.CourseView'];
+
+            for (var i = 0; i < MemberView.length; i++) {
+                $(MemberView[i]).css("display", $("#txpMemberView").val());
+            }
+            for (var i = 0; i < MemberEdit.length; i++) {
+                $(MemberEdit[i]).css("display", $("#txpMemberEdit").val());
+            }
+            for (var i = 0; i < PermissionView.length; i++) {
+                $(PermissionView[i]).css("display", $("#txpPermissionView").val());
+            }
+            for (var i = 0; i < PermissionEdit.length; i++) {
+                $(PermissionEdit[i]).css("display", $("#txpPermissionEdit").val());
+            }
+            for (var i = 0; i < MallView.length; i++) {
+                $(MallView[i]).css("display", $("#txpMallView").val());
+            }
+            for (var i = 0; i < MallEdit.length; i++) {
+                $(MallEdit[i]).css("display", $("#txpMallEdit").val());
+            }
+            for (var i = 0; i < RoomView.length; i++) {
+                $(RoomView[i]).css("display", $("#txpRoomView").val());
+            }
+            for (var i = 0; i < RoomEdit.length; i++) {
+                $(RoomEdit[i]).css("display", $("#txpRoomEdit").val());
+            }
+            for (var i = 0; i < EmployeeView.length; i++) {
+                $(EmployeeView[i]).css("display", $("#txpEmployeeView").val());
+            }
+            for (var i = 0; i < EmployeeEdit.length; i++) {
+                $(EmployeeEdit[i]).css("display", $("#txpEmployeeEdit").val());
+                console.log($(EmployeeEdit[i]).css("display"));
+            }
+            for (var i = 0; i < CourseView.length; i++) {
+                $(CourseView[i]).css("display", $("#txpCourseView").val());
+            }
+            for (var i = 0; i < CourseEdit.length; i++) {
+                $(CourseEdit[i]).css("display", $("#txpCourseEdit").val());
+            }
+            //---------------權限設定--------------------
+        })
+    </script>
+
+    <asp:ContentPlaceHolder ID="JavaScriptHolder" runat="server">
+    </asp:ContentPlaceHolder>
+
+</body>
+</html>
+
